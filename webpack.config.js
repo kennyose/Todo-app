@@ -1,12 +1,17 @@
 var webpack = require('webpack');
 var path = require('path');
+var ExtractTextPlugin = require('extract-text-webpack-plugin');
 
-module.exports = {
-  entry: [
-    'script!jquery/dist/jquery.min.js',
-    'script!foundation-sites/dist/js/foundation.min.js',
-    './app/app.jsx'
-  ],
+var BUILD_DIR = path.resolve(__dirname, 'src/client/public');
+var APP_DIR = path.resolve(__dirname, 'src/client/app');
+var STYLE_DIR = path.resolve(__dirname, 'src/client/app/styles');
+
+var config = {
+  entry: APP_DIR + '/app.jsx',
+  output: {
+    path: BUILD_DIR,
+    filename: 'bundle.js'
+  },
   externals: {
     jquery: 'jQuery'
   },
@@ -16,32 +21,42 @@ module.exports = {
       'jQuery': 'jquery'
     })
   ],
-  output: {
-    path: __dirname,
-    filename: './public/bundle.js'
-  },
-  resolve: {
-    root: __dirname,
-    alias: {
-      applicationStyles: 'app/styles/app.scss'
-    },
-    extensions: ['', '.js', '.jsx']
-  },
   module: {
-    loaders: [{
-      test: /\.jsx?$/,
-      loader: 'babel-loader',
-      exclude: /(node_modules|bower_components)/,
-      query: {
-        cacheDirectory: true,
-        presets: ['react', 'es2015', 'stage-0']
+    rules: [{
+        test: /\.jsx?/,
+        include: APP_DIR,
+        loader: 'babel-loader',
+        exclude: /(node_modules|bower_components)/
+      },
+      {
+        test: /\.css$/,
+        use: [
+          'style-loader',
+          'css-loader'
+        ]
+      },
+      {
+        test: /\.less$/,
+        use: [
+          'style-loader',
+          'css-loader',
+          'less-loader'
+        ]
+      },
+      {
+        test: /\.woff$|\.woff2$|\.ttf$|\.eot$|\.svg$/,
+        use: [
+          'file-loader'
+        ]
       }
-    }]
-  },
-  sassLoader: {
-    includePaths: [
-      path.resolve(__dirname, './node_modules/foundation-sites/scss')
     ]
   },
-  devtool: 'cheap-module-eval-source-map'
+  resolve: {
+    modules: [path.resolve('./src/client/app/styles/**'), path.resolve('./src/client/app/components'), "node_modules"],
+    extensions: [".js", ".jsx", ".css", ".less"]
+  },
+  devtool: 'cheap-module-eval-source-map',
+
 };
+
+module.exports = config;

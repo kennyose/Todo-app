@@ -28,14 +28,18 @@ class AddTodo extends React.Component {
   handleChange(e) {
     e.preventDefault();
 
-    this.setState({ value: e.target.value });
+    this.setState({ value: this.refs.todo.value });
   }
 
   handleSubmit(e) {
     e.preventDefault();
-    var rtodo = this.refs.todo.props.value;
+    var rtodo = this.refs.todo.value;
+
     if (rtodo.length > 0) {
-      return (this.props.setRtodo(rtodo), console.log(this.refs.todo))
+      this.refs.todo.value = "";
+      this.props.setRtodo(rtodo);
+    } else {
+      this.refs.todo.focus();
     }
   }
 
@@ -44,9 +48,9 @@ class AddTodo extends React.Component {
       <div>
         <form onSubmit={this.handleSubmit}>
           <FormGroup controlId="formValidationSuccess2" validationState={this.getValidationState()}>
-            <FormControl ref="todo" value={this.state.value} type="text" placeholder="Add a todo" onChange={this.handleChange} />
+            <input ref="todo" type="text" className="form-control" placeholder="Add a todo" onChange={this.handleChange} />
             <FormControl.Feedback />
-            <Button type="submit" bsStyle="primary">Ok</Button>
+            <button type="submit" className="btn btn-primary btn-block">Ok</button>
           </FormGroup>
         </form>
       </div>

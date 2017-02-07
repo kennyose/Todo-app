@@ -52,7 +52,7 @@ var config = {
     ]
   },
   resolve: {
-    modules: [path.resolve('./src/client/app/styles/**'), path.resolve('./src/client/app/components'), "node_modules"],
+    modules: [path.resolve('./src/client/app/styles/**'), path.resolve('./src/client/app/components'), path.resolve('./src/client/app/api'), "node_modules"],
     extensions: [".js", ".jsx", ".css", ".less"]
   },
   devtool: 'cheap-module-eval-source-map',

@@ -1,8 +1,10 @@
 import React from 'react';
+import uuid from 'node-uuid';
+
 import TodoList from 'TodoList';
 import AddTodo from 'AddTodo';
 import TodoSearch from 'TodoSearch';
-import uuid from 'node-uuid';
+import TodoAPI from 'TodoAPI';
 
 import { Grid, Row, Col, Clearfix, Jumbotron } from 'react-bootstrap';
 
@@ -15,29 +17,18 @@ class TodoApp extends React.Component {
     this.state = {
       showCompleted: false,
       searchText: '',
-      todos: [
-        {
-          id: uuid(),
-          text: 'Walk the dog',
-          completed: false
-        }, {
-          id: uuid(),
-          text: 'Clean the yard',
-          completed: true,
-        },
-        {
-          id: uuid(),
-          text: 'chop and belle-full',
-          completed: true
-        }
-      ]
+      todos: TodoAPI.getTodos()
     };
+  }
+
+  componentDidUpdate() {
+    TodoAPI.setState(this.state.todos)
   }
 
   handleAddTodo(text) {
     this.setState({
       todos: [
-        ...this.state.todos, 
+        ...this.state.todos,
         {
           id: uuid(),
           text: text,
@@ -59,7 +50,7 @@ class TodoApp extends React.Component {
       if (todo.id === id) {
         todo.completed = !todo.completed;
       }
-      
+
       return todos;
     });
 
@@ -77,9 +68,9 @@ class TodoApp extends React.Component {
             <h1>Todo App</h1>
           </Jumbotron>
           <Col sm={4} md={4}></Col>
-          <Col sm={4} md={4}> 
-            <TodoSearch onSearch={this.handleSearch}/>
-    <TodoList todos={todos} onToggle={this.handleToggle}/>
+          <Col sm={4} md={4}>
+            <TodoSearch onSearch={this.handleSearch} />
+            <TodoList todos={todos} onToggle={this.handleToggle} />
             <AddTodo setRtodo={this.handleAddTodo} />
           </Col>
           <Col sm={4} md={4}></Col>

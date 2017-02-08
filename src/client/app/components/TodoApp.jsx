@@ -1,5 +1,6 @@
 import React from 'react';
 import uuid from 'node-uuid';
+import moment from 'moment';
 
 import TodoList from 'TodoList';
 import AddTodo from 'AddTodo';
@@ -32,7 +33,9 @@ class TodoApp extends React.Component {
         {
           id: uuid(),
           text: text,
-          completed: false
+          completed: false,
+          createdAt: moment().unix(),
+          completedAt: undefined
         }
       ]
     });
@@ -49,6 +52,7 @@ class TodoApp extends React.Component {
     var updatedTodos = this.state.todos.map((todo) => {
       if (todo.id === id) {
         todo.completed = !todo.completed;
+        todo.completedAt = todo.completed ? moment().unix() : undefined;
       }
 
       return todo;
@@ -67,31 +71,19 @@ class TodoApp extends React.Component {
       <div>
         <Grid>
           <Jumbotron>
-            <h1>Todo App</h1>
+            <h1 className="text-center">Todo App</h1>
           </Jumbotron>
-          <Col sm={4} md={4}></Col>
-          <Col sm={4} md={4}>
+          <Col sm={3} md={3}></Col>
+          <Col sm={6} md={6}>
             <TodoSearch onSearch={this.handleSearch} />
             <TodoList todos={filteredTodos} onToggle={this.handleToggle} />
             <AddTodo setRtodo={this.handleAddTodo} />
           </Col>
-          <Col sm={4} md={4}></Col>
+          <Col sm={3} md={3}></Col>
         </Grid>
       </div>
     );
   }
 }
-
-/*TodoApp.defaultProps = {
-  todos: [
-    {
-      id: 1,
-      text: 'Walk the dog'
-    }, {
-      id: 2,
-      text: 'Clean the yard'
-    }
-  ]
-};*/
 
 module.exports = TodoApp;

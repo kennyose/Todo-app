@@ -7,7 +7,7 @@ var APP_DIR = path.resolve(__dirname, 'src/client/app');
 var STYLE_DIR = path.resolve(__dirname, 'src/client/app/styles');
 
 var config = {
-  entry: APP_DIR + '/app.jsx',
+  entry: [APP_DIR + '/app.jsx',  './node_modules/jquery/dist/jquery.min.js'],
   output: {
     path: BUILD_DIR,
     filename: 'bundle.js'

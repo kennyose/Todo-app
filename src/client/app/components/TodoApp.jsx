@@ -22,7 +22,7 @@ class TodoApp extends React.Component {
   }
 
   componentDidUpdate() {
-    TodoAPI.setState(this.state.todos)
+    TodoAPI.setTodos(this.state.todos);
   }
 
   handleAddTodo(text) {
@@ -46,12 +46,12 @@ class TodoApp extends React.Component {
   }
 
   handleToggle(id) {
-    var updatedTodos = this.state.todos.map(() => {
+    var updatedTodos = this.state.todos.map((todo) => {
       if (todo.id === id) {
         todo.completed = !todo.completed;
       }
 
-      return todos;
+      return todo;
     });
 
     this.setState({
@@ -60,7 +60,9 @@ class TodoApp extends React.Component {
   }
 
   render() {
-    var {todos} = this.state;
+    var {todos, showCompleted, searchText} = this.state;
+    var filteredTodos = TodoAPI.filterTodos(todos, showCompleted, searchText);
+
     return (
       <div>
         <Grid>
@@ -70,7 +72,7 @@ class TodoApp extends React.Component {
           <Col sm={4} md={4}></Col>
           <Col sm={4} md={4}>
             <TodoSearch onSearch={this.handleSearch} />
-            <TodoList todos={todos} onToggle={this.handleToggle} />
+            <TodoList todos={filteredTodos} onToggle={this.handleToggle} />
             <AddTodo setRtodo={this.handleAddTodo} />
           </Col>
           <Col sm={4} md={4}></Col>

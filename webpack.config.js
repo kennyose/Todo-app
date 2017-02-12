@@ -44,6 +44,14 @@ var config = {
         ]
       },
       {
+        test: /\.scss$/,
+        use: [
+          'style-loader',
+          'css-loader',
+          'sass-loader'
+        ]
+      },
+      {
         test: /\.woff$|\.woff2$|\.ttf$|\.eot$|\.svg$/,
         use: [
           'file-loader'
@@ -52,8 +60,17 @@ var config = {
     ]
   },
   resolve: {
-    modules: [path.resolve('./src/client/app/styles/**'), path.resolve('./src/client/app/components'), path.resolve('./src/client/app/api'), "node_modules"],
-    extensions: [".js", ".jsx", ".css", ".less"]
+    modules: [
+      path.resolve('./src/client/app/styles/**'), 
+      path.resolve('./src/client/app/styles'), 
+      path.resolve('./src/client/app/components'), 
+      path.resolve('./src/client/app/api'),
+      path.resolve('./src/client/app/actions'), 
+      path.resolve('./src/client/app/reducers'), 
+      path.resolve('./src/client/app/store'), 
+      "node_modules"
+    ],
+    extensions: [".js", ".jsx", ".css", ".less", ".scss"]
   },
   devtool: 'cheap-module-eval-source-map',
 

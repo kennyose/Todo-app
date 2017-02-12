@@ -1,5 +1,6 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import {connect} from 'react-redux';
+var actions = require('actions');
 import { Button, FormGroup, FormControl, ControlLabel } from 'react-bootstrap';
 
 // this.refs.todo.props.value
@@ -33,12 +34,13 @@ class AddTodo extends React.Component {
 
   handleSubmit(e) {
     e.preventDefault();
+    var {dispatch} = this.props;
     var rtodo = this.refs.todo.value;
 
     if (rtodo.length > 0) {
       this.refs.todo.value = "";
-      this.setState({value: ''})
-      this.props.setRtodo(rtodo);
+      this.setState({value: ''});
+      dispatch(actions.addTodo(rtodo));
     } else {
       this.refs.todo.focus();
     }
@@ -46,12 +48,12 @@ class AddTodo extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className="container__footer">
         <form onSubmit={this.handleSubmit}>
           <FormGroup controlId="formValidationSuccess2" validationState={this.getValidationState()}>
-            <input ref="todo" type="text" className="form-control" placeholder="Add a todo" onChange={this.handleChange} />
+            <input ref="todo" type="text" className="form-control" placeholder="What would you like to do?" onChange={this.handleChange} />
             <FormControl.Feedback />
-            <button type="submit" className="btn btn-primary btn-block">Ok</button>
+            <button type="submit" className="btn btn-primary btn-block" style={{marginTop: '10px'}}>Ok</button>
           </FormGroup>
         </form>
       </div>
@@ -60,4 +62,4 @@ class AddTodo extends React.Component {
 }
 
 
-module.exports = AddTodo;
+export default connect()(AddTodo);

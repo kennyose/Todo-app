@@ -5,85 +5,28 @@ import moment from 'moment';
 import TodoList from 'TodoList';
 import AddTodo from 'AddTodo';
 import TodoSearch from 'TodoSearch';
-import TodoAPI from 'TodoAPI';
 
 import { Grid, Row, Col, Clearfix, Jumbotron } from 'react-bootstrap';
 
-class TodoApp extends React.Component {
-  constructor(props) {
-    super(props);
-    this.handleAddTodo = this.handleAddTodo.bind(this);
-    this.handleSearch = this.handleSearch.bind(this);
-    this.handleToggle = this.handleToggle.bind(this);
-    this.state = {
-      showCompleted: false,
-      searchText: '',
-      todos: TodoAPI.getTodos()
-    };
-  }
+let {Component, PropTypes} = React;
 
-  componentDidUpdate() {
-    TodoAPI.setTodos(this.state.todos);
-  }
-
-  handleAddTodo(text) {
-    this.setState({
-      todos: [
-        ...this.state.todos,
-        {
-          id: uuid(),
-          text: text,
-          completed: false,
-          createdAt: moment().unix(),
-          completedAt: undefined
-        }
-      ]
-    });
-  }
-
-  handleSearch(showCompleted, searchText) {
-    this.setState({
-      showCompleted: showCompleted,
-      searchText: searchText.toLowerCase()
-    })
-  }
-
-  handleToggle(id) {
-    var updatedTodos = this.state.todos.map((todo) => {
-      if (todo.id === id) {
-        todo.completed = !todo.completed;
-        todo.completedAt = todo.completed ? moment().unix() : undefined;
-      }
-
-      return todo;
-    });
-
-    this.setState({
-      todos: updatedTodos
-    });
-  }
-
+export default class TodoApp extends Component {
   render() {
-    var {todos, showCompleted, searchText} = this.state;
-    var filteredTodos = TodoAPI.filterTodos(todos, showCompleted, searchText);
-
     return (
-      <div>
+      <div >
         <Grid>
           <Jumbotron>
             <h1 className="text-center">Todo App</h1>
           </Jumbotron>
           <Col sm={3} md={3}></Col>
-          <Col sm={6} md={6}>
-            <TodoSearch onSearch={this.handleSearch} />
-            <TodoList todos={filteredTodos} onToggle={this.handleToggle} />
-            <AddTodo setRtodo={this.handleAddTodo} />
-          </Col>
+          <div className="col-sm-6 col-md-6 container__main">
+            <TodoSearch />
+            <TodoList />
+            <AddTodo />
+          </div>
           <Col sm={3} md={3}></Col>
         </Grid>
       </div>
     );
   }
 }
-
-module.exports = TodoApp;

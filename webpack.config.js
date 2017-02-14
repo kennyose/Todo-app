@@ -2,6 +2,8 @@ var webpack = require('webpack');
 var path = require('path');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
 
+process.env.NODE_ENV = process.env.NODE_ENV || 'development';
+
 var BUILD_DIR = path.resolve(__dirname, 'src/client/public');
 var APP_DIR = path.resolve(__dirname, 'src/client/app');
 var STYLE_DIR = path.resolve(__dirname, 'src/client/app/styles');
@@ -19,7 +21,8 @@ var config = {
     new webpack.ProvidePlugin({
       '$': 'jquery',
       'jQuery': 'jquery'
-    })
+    }),
+    new webpack.optimize.UglifyJsPlugin()
   ],
   module: {
     rules: [{
@@ -72,8 +75,7 @@ var config = {
     ],
     extensions: [".js", ".jsx", ".css", ".less", ".scss"]
   },
-  devtool: 'cheap-module-eval-source-map',
-
+  devtool: process.env.NODE_ENV === 'production' ? undefined : 'cheap-module-eval-source-map'
 };
 
 module.exports = config;

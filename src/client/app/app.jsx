@@ -14,18 +14,12 @@ require('bootstrap/fonts/glyphicons-halflings-regular.woff2');
 import TodoApp from 'TodoApp';
 import TodoApi from 'TodoAPI';
 
+
 var actions = require('actions');
 // import store from 'configureStore';
 var store = require('configureStore').configure();
 
-var unsubscribe = store.subscribe(() => {
-  var state = store.getState();
-  console.log('New state: ', state);
-  TodoApi.setTodos(state.todos)
-});
-
-var initialTodos = TodoApi.getTodos();
-store.dispatch(actions.addTodos(initialTodos));
+store.dispatch(actions.startAddTodos());
 
 // Load foundation
 // $(document).foundation();

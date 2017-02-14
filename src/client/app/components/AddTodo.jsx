@@ -40,7 +40,7 @@ class AddTodo extends React.Component {
     if (rtodo.length > 0) {
       this.refs.todo.value = "";
       this.setState({value: ''});
-      dispatch(actions.addTodo(rtodo));
+      dispatch(actions.startAddTodo(rtodo));
     } else {
       this.refs.todo.focus();
     }

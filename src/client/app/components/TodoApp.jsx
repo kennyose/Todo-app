@@ -1,6 +1,4 @@
 import React from 'react';
-import uuid from 'node-uuid';
-import moment from 'moment';
 
 import TodoList from 'TodoList';
 import AddTodo from 'AddTodo';

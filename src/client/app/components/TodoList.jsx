@@ -17,19 +17,17 @@ class TodoList extends React.Component {
           <div>
             <Todo key={todo.id} {...todo} />            
           </div>
-
-        )
-      })
+        );
+      });
     };
 
     return (
       <div>
         {renderTodos()}
-        
       </div>
     );
-  }
-}
+  };
+};
 
 export default connect(
   (state) => {

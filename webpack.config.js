@@ -88,6 +88,7 @@ var config = {
       path.resolve('./src/client/app/actions'), 
       path.resolve('./src/client/app/reducers'), 
       path.resolve('./src/client/app/store'), 
+      path.resolve('./src/client/app/router'), 
       "node_modules"
     ],
     extensions: [".js", ".jsx", ".css", ".less", ".scss"]

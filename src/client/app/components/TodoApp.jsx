@@ -1,8 +1,11 @@
 import React from 'react';
 
+import * as Redux from 'react-redux';
+
 import TodoList from 'TodoList';
 import AddTodo from 'AddTodo';
 import TodoSearch from 'TodoSearch';
+import * as actions from 'actions';
 
 import { Grid, Row, Col, Clearfix, Jumbotron } from 'react-bootstrap';
 
@@ -28,3 +31,5 @@ export default class TodoApp extends Component {
     );
   }
 }
+
+Redux.connect()(TodoApp);

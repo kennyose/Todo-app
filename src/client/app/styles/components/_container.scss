@@ -9,13 +9,10 @@
 .container__header {
   border-bottom: 1px solid $light-grey-border;
   padding: 1rem;
-
   label {
     cursor: pointer;
     font-size: 1.3rem;
-    
   }
-
   > :last-child {
     align-items: center;
     display: flex;
@@ -32,3 +29,34 @@
   margin: 2rem auto;
   text-align: center;
 }
+
+.login-row {
+  display: flex;
+  flex-flow: column wrap;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.login-col {
+  border: 1.5px solid $light-grey-border;
+  padding: 1rem;
+  word-break: break-all;
+  background: $light-grey;
+}
+
+.t-nav {
+  margin-right: 0;
+}
+
+.container-fluid {
+  h3,
+  p {
+    margin-bottom: 2rem;
+  }
+}
+
+.main-con {
+  margin: 0;
+}
+

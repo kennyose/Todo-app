@@ -27,7 +27,20 @@ module.exports = {
 
     //Sort todos with createdAt order
     filteredTodos.sort((a, b) => {
-      if (a.completed || b.completed) {
+      if (!a.completed && !b.completed) {
+        if (a.createdAt > b.createdAt) {
+          return -1;
+        } else if (b.createdAt > a.createdAt) {
+          return 1;
+        } else {
+          return 0;
+        }
+      }
+    });
+
+    //Sort todos with createdAt order
+    filteredTodos.sort((a, b) => {
+      if (a.completed && b.completed) {
         if (a.completedAt > b.completedAt) {
           return -1;
         } else if (b.completedAt > a.completedAt) {

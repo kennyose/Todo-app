@@ -1,5 +1,5 @@
 import firebase, {
-  firebaseRef
+  firebaseRef, githubProvider
 } from 'TodoAPIFB';
 import thunk from "redux-thunk";
 import moment from "moment";
@@ -90,6 +90,24 @@ export var startToggleTodo = (id, completed) => {
 
     return todoRef.update(updates).then(() => {
       dispatch(updateTodo(id, updates))
+    });
+  };
+};
+
+export var startLogin = () => {
+  return (dispatch, getState) => {
+    return firebase.auth().signInWithPopup(githubProvider).then((result) => {
+      console.log('Auth worked!: ', result)
+    }, (e) => {
+      console.log('something went wrong: ', e)
+    });
+  };
+};
+
+export var startLogout = () => {
+  return (dispatch, getState) => {
+    return firebase.auth().signOut().then(() => {
+      console.log('Logged out!')
     });
   };
 };

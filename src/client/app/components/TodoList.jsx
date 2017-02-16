@@ -1,5 +1,5 @@
 import React from 'react';
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 import Todo from 'Todo';
 import TodoAPI from 'TodoAPI';
 
@@ -15,7 +15,7 @@ class TodoList extends React.Component {
       return TodoAPI.filterTodos(todos, showCompleted, searchText).map((todo) => {
         return (
           <div>
-            <Todo key={todo.id} {...todo} />            
+            <Todo key={todo.id} {...todo} />
           </div>
         );
       });

@@ -33,7 +33,8 @@ export var startAddTodo = (text) => {
       completedAt: null
     }
 
-    let todoRef = firebaseRef.child('todos').push(todo);
+    let uid = getState().auth.uid;  
+    let todoRef = firebaseRef.child(`users/${uid}/todos`).push(todo);
 
     return todoRef.then(() => {
       dispatch(addTodo({
@@ -53,7 +54,8 @@ export var addTodos = (todos) => {
 
 export var startAddTodos = () => {
   return (dispatch, getState) => {
-    var todoRef = firebaseRef.child('todos');
+    let uid = getState().auth.uid;
+    var todoRef = firebaseRef.child(`users/${uid}/todos`);
     return todoRef.once('value').then((snapshot) => {
       var todos = snapshot.val() || {};
       var parsedTodos = [];
@@ -82,7 +84,8 @@ export var updateTodo = (id, updates) => {
 
 export var startToggleTodo = (id, completed) => {
   return (dispatch, getState) => {
-    var todoRef = firebaseRef.child(`todos/${id}`);
+    let uid = getState().auth.uid;
+    var todoRef = firebaseRef.child(`users/${uid}/todos/${id}`);
     var updates = {
       completed,
       completedAt: completed ? moment().unix() : null
@@ -109,5 +112,18 @@ export var startLogout = () => {
     return firebase.auth().signOut().then(() => {
       console.log('Logged out!')
     });
+  };
+};
+
+export var login = (uid) => {
+  return {
+    type: "LOGIN",
+    uid
+  };
+};
+
+export var logout = () => {
+  return {
+    type: "LOGOUT"
   };
 };

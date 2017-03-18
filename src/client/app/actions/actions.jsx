@@ -52,6 +52,12 @@ export var addTodos = (todos) => {
   };
 };
 
+export var removeTodos = () => {
+  return {
+    type: "REMOVE_TODOS"
+  }
+}
+
 export var startAddTodos = () => {
   return (dispatch, getState) => {
     let uid = getState().auth.uid;

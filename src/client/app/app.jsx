@@ -9,6 +9,7 @@ import RouterX from 'index';
 var actions = require('actions');
 var store = require('configureStore').configure();
 
+require('bootstrap/dist/js/bootstrap.min.js');
 require('bootstrap/less/bootstrap.less');
 require('bootstrap/fonts/glyphicons-halflings-regular.svg');
 require('bootstrap/fonts/glyphicons-halflings-regular.eot');

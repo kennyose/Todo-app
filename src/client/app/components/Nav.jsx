@@ -11,6 +11,7 @@ class Nav extends React.Component {
     e.preventDefault();
 
     dispatch(actions.startLogout());
+    dispatch(actions.removeTodos());
   }
 
   render() {

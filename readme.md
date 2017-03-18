@@ -9,7 +9,8 @@ This app was built with [Nodejs](https://nodejs.org/), [React](https://facebook.
 
 with this app, you can easily:
 
-[x] Add a task
-[x] Delete a task 
-[x] Reorder tasks
-[x] Save tasks
+- [x] Add a task
+- [x] Delete a task 
+- [x] Reorder tasks
+- [x] Save tasks
+
